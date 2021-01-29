@@ -14,7 +14,8 @@ export default function Header(props) {
     })
     return (
         <>
-        {(window.innerWidth < 577) ?
+        {/* window.innerWidth < 577 */}
+        {(1) ? 
             <AppBar position="fixed">
                 <Toolbar>
                     <IconButton edge="start" color="inherit" aria-label="menu" onClick={() => setState({open:true})}>
@@ -23,13 +24,14 @@ export default function Header(props) {
                     <Typography variant="h6">
                         {props.title}
                     </Typography>
+                    {props.button}
                 </Toolbar>
             </AppBar>
             :
             <nav className="header navbar navbar-expand-lg navbar-light bg-white p-0">
                 <div className="container">
                     <Link className="navbar-brand" to="/">
-                        <img src="logo.png" alt="Logo" height="40"/>
+                        <img src="/logo.png" alt="Logo" height="40"/>
                     </Link>
                     <ul className="navbar-nav">
                         <li className="nav-item">
@@ -95,7 +97,7 @@ export default function Header(props) {
             <div style={{width: 320, maxWidth: window.innerWidth - 70}}>
                 <List component="nav" className="menu-mobile">
                     <ListItem className="justify-content-center">
-                        <img className="img-fluid logo-mobile" src="logo.png" alt="Logo"/>
+                        <img className="img-fluid logo-mobile" src="/logo.png" alt="Logo"/>
                     </ListItem>
                     <ListItem>
                         test@gmail.com

@@ -4,6 +4,32 @@
 
 a, a:hover {
     text-decoration: none !important;
+    color: inherit;
+}
+
+/* @media (max-width: 576px) {
+    body {
+        margin-top: 56px;
+    }
+} */
+
+body {
+    margin-top: 56px;
+    background-color: #eee;
+}
+
+.label-custom{
+    color: #2c2c31;
+    font-weight: 600;
+    font-family: 'Open Sans', sans-serif;
+    margin: 10px;
+}
+
+.card {
+    background-color: rgb(255,255,255);
+    box-shadow: rgba(153,153,153, 0.2) 0px 2px 4px 0px;
+    border-radius: 3px;
+    border: none;
 }
 
 .header {
@@ -55,3 +81,41 @@ a, a:hover {
     font-size: 22px;
     color: #444
 }
+
+.vehicle-img {
+    min-width: 180px;
+    min-height: 135px;
+}
+
+@media (max-width: 576px){
+    .vehicle-img img {
+        min-width: 100px !important;
+        min-height: 75px !important;
+        max-width: 100px;
+    }
+
+    .MuiMenu-paper {
+        position: fixed;
+        top: auto !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        max-width: 100% !important;
+        border-radius: 0 !important;
+    }
+
+    .MuiMenu-paper ~ div:before {
+        content: "";
+        z-index: -1;
+        position: fixed;
+        inset: 0px;
+        background-color: rgba(0,0,0,0.5);
+    }
+}
+
+.MuiMenuItem-root {
+    padding-top: 9px !important;
+    padding-bottom: 9px !important;
+    font-weight: 500 !important;
+}
+
