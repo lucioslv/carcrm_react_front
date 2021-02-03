@@ -1,5 +1,6 @@
 import React from 'react'
 import { index, destroy } from '../../store/actions/vehicles.action'
+import { changeScreenC } from '../../store/actions/navigation.action'
 import { Link } from 'react-router-dom'
 import { Button, CircularProgress, IconButton, Menu, MenuItem, Slide, Fade } from '@material-ui/core'
 import { FaPlus, FaEllipsisV, FaClipboard, FaUser, FaLink, FaPencilAlt, FaTrash, FaShare } from 'react-icons/fa'
@@ -63,6 +64,15 @@ export default function Vehicles() {
         dispatch(destroy(id)).then(res => res && setState({ isDeleted: null }))
     }
 
+    const notes = (id) => {
+        setState({menuEl: null})
+        dispatch(changeScreenC({
+            open: true,
+            type: 'notes',
+            uid: id
+        }))
+    }
+
     const Transition = React.forwardRef((props, ref) => {
         return <Slide direction="up" ref={ref} {...props} />
     })
@@ -74,7 +84,7 @@ export default function Vehicles() {
                 {(isLoading) ? <div className="d-flex justify-content-center mt-5 pt-5"> <CircularProgress/> </div> :
                     <>
                         <div className="d-flex mb-4">
-                            <h3 className="font-weight-normal">Veiculos</h3>
+                            <h3 className="font-weight-normal">Veículos</h3>
                             <Link to="/vehicles/create" className="ms-auto">
                                 <Button variant="contained" color="primary" size="large">
                                     <FaPlus size="1.5em" className="me-2" />
@@ -93,14 +103,14 @@ export default function Vehicles() {
                             {(vehicles.data.length < 1) &&
                                 <div className="text-center mt-5 pt-5 mb-5 pb-5">
                                     <FcOpenedFolder size="70" />
-                                    <h6 className="mt-4 text-muted">Nenhum veiculo encontrado</h6>
+                                    <h6 className="mt-4 text-muted">Nenhum veículo encontrado.</h6>
                                 </div>
                             }
 
                             <div className="p-2 p-md-3">
                                 {vehicles.data.map((item, index) => (
                                     <React.Fragment key={index}>
-                                        <div className="d-flex">
+                                        <div className="d-flex pb-2">
                                             <div className="vehicle-img d-flex justify-content-center align-items-center">
                                                 {(state.isDeleted === item.id) ? 
                                                     <CircularProgress color="secondary" /> :
@@ -136,7 +146,7 @@ export default function Vehicles() {
                                                         open={(index === parseInt(state.menuEl.id))}
                                                         onClose={() => setState({ menuEl: null })}
                                                     >
-                                                        <MenuItem>
+                                                        <MenuItem onClick={() => notes(item.id)}>
                                                             <FaClipboard size="1.2em" className="me-4" /> Notas
                                                         </MenuItem>
                                                         <MenuItem>

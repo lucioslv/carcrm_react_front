@@ -15,7 +15,7 @@ export default function Header(props) {
     return (
         <>
         {/* window.innerWidth < 577 */}
-        {(1) ? 
+        {(window.innerWidth < 577) ? 
             <AppBar position="fixed">
                 <Toolbar>
                     <IconButton edge="start" color="inherit" aria-label="menu" onClick={() => setState({open:true})}>
@@ -35,7 +35,7 @@ export default function Header(props) {
                     </Link>
                     <ul className="navbar-nav">
                         <li className="nav-item">
-                            <Link className="nav-link" to="vehicles">
+                            <Link className="nav-link" to="/vehicles">
                                 <FaCar className="icon-lg me-2"/>Veículos
                             </Link>
                         </li>
@@ -104,8 +104,8 @@ export default function Header(props) {
                     </ListItem>
                     <Divider className="mt-2 mb-3"/>
                     <ListItem>
-                        <ListItemIcon><FaCar/></ListItemIcon>
-                        <ListItemText primary="Veículos"/>
+                            <ListItemIcon><FaCar/></ListItemIcon>
+                            <ListItemText primary="Veículos"/>
                     </ListItem>
                     <ListItem>
                         <ListItemIcon><FaUsers/></ListItemIcon>
