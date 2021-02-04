@@ -44,11 +44,16 @@ export const updateResponse = (payload) => ({
 })
 
 export const update = (data) => dispatch => {
-    return HttpAuth.put('notes', data)
+    return HttpAuth.put('/notes/'+data.id, data)
             .then(res => {
                 if(typeof res !== 'undefined'){
                     if(res.data.status === 200){
                         dispatch(updateResponse(data))
+                        dispatch(changeNotify({
+                            open: true,
+                            msg: res.data.success,
+                            class: 'success'
+                        }))
                     }
                 }
             })
@@ -71,7 +76,27 @@ export const destroyResponse = (payload) => ({
 
 export const destroy = (id) => dispatch => {
     return HttpAuth.delete('/notes/'+id)
-            .then(res => typeof res !== 'undefined' && dispatch(destroyResponse(id)))
+            .then(res => {
+                if(typeof res !== 'undefined'){
+                    if(res.data.status === 200){
+                        dispatch(destroyResponse(id))
+                        dispatch(changeNotify({
+                            open: true,
+                            msg: res.data.success,
+                            class: 'success'
+                        }))
+                    }
+                }
+            })
+            .catch(error => {
+                if(error.response.data.error){
+                    dispatch(changeNotify({
+                        open: true,
+                        msg: error.response.data.error,
+                        class: 'error'
+                    }))
+                }
+            })
 }
 
 

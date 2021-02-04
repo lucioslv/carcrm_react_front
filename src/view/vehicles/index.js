@@ -24,9 +24,24 @@ export default function Vehicles() {
 
     React.useEffect(() => {
         document.addEventListener('scroll', _handleScroll );
-        _index();
+        return () => document.removeEventListener('scroll', _handleScroll)
         //eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    })
+
+    React.useEffect(() => {
+        _index(isLoadMore)
+        //eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [query])
+
+    React.useEffect(() => {
+        if(isLoadMore) {
+            setQuery({
+                ...query,
+                page: query.page + 1
+            })
+        }
+        //eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isLoadMore])
 
     const _handleScroll = (event) => {
         let scrollTop = event.srcElement.body.scrollHeight - (event.srcElement.body.offsetHeight + event.srcElement.body.scrollTop);
@@ -37,12 +52,7 @@ export default function Vehicles() {
 
     const _handleLoadMore = () => {
         if(vehicles.current_page < vehicles.last_page) {
-            setQuery({
-                ...query,
-                page: query.page + 1
-            }, () => {
-                _index(true);
-            })
+            setLoadMore(true)
         }
     }
 
@@ -69,7 +79,10 @@ export default function Vehicles() {
         dispatch(changeScreenC({
             open: true,
             type: 'notes',
-            uid: id
+            props: {
+                uid: id,
+                type: 'vehicles'
+            }
         }))
     }
 
@@ -157,12 +170,13 @@ export default function Vehicles() {
                                                         </MenuItem>
 
                                                         <div className="dropdown-divider" />
-
-                                                        <MenuItem>
-                                                            <Link to={'/vehicles/'+item.id+'/edit'}>
-                                                                <FaPencilAlt size="1.2em" className="me-4" /> Editar
-                                                            </Link>
-                                                        </MenuItem>
+                                                        <Link to={'/vehicles/'+item.id+'/edit'}>
+                                                            <MenuItem>
+                                                                
+                                                                    <FaPencilAlt size="1.2em" className="me-4" /> Editar
+                                                                
+                                                            </MenuItem>
+                                                        </Link>
                                                         <MenuItem onClick={() => setState({ confirmEl: item.id })}>
                                                             <FaTrash size="1.2em" className="me-4" /> Apagar
                                                         </MenuItem>
@@ -182,6 +196,7 @@ export default function Vehicles() {
                                         </div>
                                     </React.Fragment>
                                 ))}
+                                {(isLoadMore) && <div className="text-center card-body"><CircularProgress /></div>}
                             </div>
                         </div>
                     </>
