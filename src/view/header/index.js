@@ -3,8 +3,11 @@ import { Link } from 'react-router-dom'
 import { MenuList, MenuItem, AppBar, Toolbar, IconButton, Typography, Drawer, List, Divider, ListItem, ListItemText, ListItemIcon, Collapse  } from '@material-ui/core'
 import { FaCar, FaUsers, FaLaptop, FaCreditCard, FaWhatsapp, FaSignOutAlt, FaAngleUp, FaAngleDown } from 'react-icons/fa'
 import { MdMenu } from 'react-icons/md'
+import { useDispatch } from 'react-redux'
+import { changeScreenA } from '../../store/actions/navigation.action'
 
 export default function Header(props) {
+    const dispatch = useDispatch()
     const [state, setState] = React.useState({
         open: false
     })
@@ -12,6 +15,15 @@ export default function Header(props) {
         site: false,
         financeiro: false
     })
+
+    const handlePage = (page) => {
+        dispatch(changeScreenA({
+            open: true,
+            type: page,
+            props: {}
+        }))
+    }
+
     return (
         <>
         {/* window.innerWidth < 577 */}
@@ -40,7 +52,7 @@ export default function Header(props) {
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <button className="nav-link bg-white" to="vehicles">
+                            <button onClick={() => handlePage('owners')} className="nav-link bg-white" to="vehicles">
                                 <FaUsers className="icon-lg me-2"/> Proprietários
                             </button>
                         </li>

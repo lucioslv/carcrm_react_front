@@ -148,3 +148,9 @@ body {
     background-color: #eee;
     opacity: 0.5;
 }
+
+.fab-bottom-right {
+    position: absolute !important;
+    bottom: 16px;
+    right: 16px;
+}
