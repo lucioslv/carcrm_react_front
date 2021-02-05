@@ -1,5 +1,5 @@
 # carcrm_react_front
-Front-end com React, React Hooks e Redux
+Front-end com React, React Hooks, Redux, Material Ui e Bootstrap 5
 - **npm install**
 
 # Getting Started with Create React App
